@@ -8,6 +8,7 @@ import isodate
 
 
 # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
+#api_key = 'AIzaSyBTNCdt8hgZWLnIrNV9owGykAp9ORtCWfI'
 api_key: str = os.getenv('YT_API_KEY')
 
 # создать специальный объект для работы с API
