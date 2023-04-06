@@ -20,8 +20,8 @@ class Channel:
         return self.__url
 
     @property
-    def subscriber_count(self) -> str:
-        return self.__subscriber_count
+    def subscriber_count(self) -> int:
+        return int(self.__subscriber_count)
 
     @property
     def video_count(self) -> str:
@@ -52,6 +52,34 @@ class Channel:
 
         with open (json_file,'w') as outfile:
             json.dump(data, outfile)
+
+    def __str__(self):
+        return f"{self.__title} ({self.__url})"
+
+    def __add__(self, other):
+        return self.subscriber_count + other.subscriber_count
+
+    def __eq__(self, other):
+        return self.subscriber_count == other.subscriber_count
+
+    def __ne__(self, other):
+        return self.subscriber_count != other.subscriber_count
+
+    def __lt__(self, other):
+        return self.subscriber_count < other.subscriber_count
+
+    def __sub__(self, other):
+        return self.subscriber_count - other.subscriber_count
+    def __le__(self, other):
+        return self.subscriber_count <= other.subscriber_count
+
+    def __ge__(self, other):
+        return self.subscriber_count >= other.subscriber_count
+
+
+
+
+
 
 
 
