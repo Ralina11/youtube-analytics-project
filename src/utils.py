@@ -1,5 +1,7 @@
 from helper.youtube_api_manual import *
 from src.channel import *
+from src.video import *
+
 
 
 def get_inf_dict(channel_id: str):
