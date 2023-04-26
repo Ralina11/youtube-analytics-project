@@ -1,6 +1,7 @@
 from helper.youtube_api_manual import *
 from src.channel import *
 from src.video import *
+from googleapiclient.errors import HttpError
 
 
 
@@ -16,7 +17,6 @@ def get_inf_dict(channel_id: str):
     viewCount = format_dict_info["statistics"]["viewCount"]
 
     return channel_id, title, url, subscriberCount, videoCount, viewCount
-
 #написать две функции одна для класса видео вторая для класса плейлист
 def get_name_vide_info(video_id: str):
     """
@@ -26,13 +26,15 @@ def get_name_vide_info(video_id: str):
   - количество просмотров
   - количество лайков"""
     video_response = youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                           id=video_id
-                                           ).execute()
-
-    video_title: str = video_response['items'][0]['snippet']['title']
-    view_count: int = video_response['items'][0]['statistics']['viewCount']
-    like_count: int = video_response['items'][0]['statistics']['likeCount']
-    url_video: str = "https://youtu.be/" + video_id
+                                        id=video_id
+                                        ).execute()
+    try:
+        video_title: str = video_response['items'][0]['snippet']['title']
+        view_count: int = video_response['items'][0]['statistics']['viewCount']
+        like_count: int = video_response['items'][0]['statistics']['likeCount']
+        url_video: str = "https://youtu.be/" + video_id
+    except LookupError:
+        return video_id, None, None, None, None
 
     return video_id, video_title, url_video, view_count, like_count
 
